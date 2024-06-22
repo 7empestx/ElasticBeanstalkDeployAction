@@ -14,7 +14,7 @@ export async function run(): Promise<void> {
     const environment_name: string = core.getInput('environment_name')
     const version_label: string = core.getInput('version_label')
     const aws_region: string = core.getInput('aws_region')
-    const platform: string = core.getInput('platform')
+    //const platform: string = core.getInput('platform')
 
     const eb = new ElasticBeanstalk({
       accessKeyId: aws_access_key,
