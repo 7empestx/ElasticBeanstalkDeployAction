@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import { wait } from './wait'
 import { ElasticBeanstalk } from 'aws-sdk'
+import { assert } from 'console'
 
 /**
  * The main function for the action.
@@ -15,6 +15,13 @@ export async function run(): Promise<void> {
     const version_label: string = core.getInput('version_label')
     const aws_region: string = core.getInput('aws_region')
     //const platform: string = core.getInput('platform')
+
+    assert(aws_access_key, 'aws_access_key is required')
+    assert(aws_secret_key, 'aws_secret_key is required')
+    assert(application_name, 'application_name is required')
+    assert(environment_name, 'environment_name is required')
+    assert(version_label, 'version_label is required')
+    assert(aws_region, 'aws_region is required')
 
     const eb = new ElasticBeanstalk({
       accessKeyId: aws_access_key,
@@ -39,17 +46,6 @@ export async function run(): Promise<void> {
 
     core.setOutput('time', new Date().toTimeString())
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
-
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)
