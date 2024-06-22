@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
-import { ElasticBeanstalk } from 'aws-sdk'
 import { assert } from 'console'
+import { ElasticBeanstalkClient, UpdateEnvironmentCommand } from "@aws-sdk/client-elastic-beanstalk"; 
 
 /**
  * The main function for the action.
@@ -23,26 +23,24 @@ export async function run(): Promise<void> {
     assert(version_label, 'version_label is required')
     assert(aws_region, 'aws_region is required')
 
-    const eb = new ElasticBeanstalk({
-      accessKeyId: aws_access_key,
-      secretAccessKey: aws_secret_key,
-      region: aws_region
-    })
+    // Set variables to local environment
+    process.env.AWS_ACCESS_KEY_ID = aws_access_key
+    process.env.AWS_SECRET_ACCESS_KEY = aws_secret_key
+    process.env.AWS_REGION = aws_region
+    process.env.APPLICATION_NAME = application_name
+    process.env.ENVIRONMENT_NAME = environment_name
+    process.env.VERSION_LABEL = version_label
 
-    const params = {
-      ApplicationName: application_name,
-      EnvironmentName: environment_name,
-      VersionLabel: version_label
-    }
-
-    eb.updateEnvironment(params, function (err, data) {
-      if (err) {
-        console.log(err, err.stack)
-        core.setFailed(err.message)
-      } else {
-        console.log(data)
+    const config = {
+      region: aws_region,
+      credentials: {
+        accessKeyId: aws_access_key,
+        secretAccessKey: aws_secret_key
       }
-    })
+    }
+    // Create an ElasticBeanstalk client service object
+    const client = new ElasticBeanstalkClient(config);
+    assert(client, 'client is required')
 
     core.setOutput('time', new Date().toTimeString())
   } catch (error) {

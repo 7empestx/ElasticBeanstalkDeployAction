@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
+    "@aws-sdk/client-elastic-beanstalk": "^3.600.0",
     "aws-sdk": "^2.1646.0"
   },
   "devDependencies": {
