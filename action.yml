@@ -34,7 +34,7 @@ inputs:
   # version_label: 12345
   version_label:
     description: 'Version Label'
-    required: false 
+    required: false
     default: '12345'
 
   # We should not need to package the application in the action
