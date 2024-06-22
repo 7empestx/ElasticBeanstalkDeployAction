@@ -5,7 +5,7 @@ author: '7empestx'
 inputs:
   # aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
   aws_access_key:
-    description: 'AWS Access Key'
+    description: 'AWS Access Key Id'
     required: true
     default: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
@@ -36,7 +36,7 @@ inputs:
   # version_label: 12345
   version_label:
     description: 'Version Label'
-    required: true
+    required: false 
     default: '12345'
 
   # We should not need to package the application in the action

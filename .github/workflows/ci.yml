@@ -62,7 +62,8 @@ jobs:
           aws_region: ${{ secrets.AWS_REGION }}
           application_name: ${{ secrets.APPLICATION_NAME }}
           environment_name: ${{ secrets.ENVIRONMENT_NAME }}
-          version_label: ${{ secrets.VERSION_LABEL }}
+          # We should be able to create a new version label
+          #version_label: ${{ secrets.VERSION_LABEL }}
           platform: ${{ secrets.PLATFORM }}
 
       - name: Print Output
