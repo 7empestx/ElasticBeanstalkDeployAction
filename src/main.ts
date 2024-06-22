@@ -1,6 +1,6 @@
 import * as core from '@actions/core'
 import { assert } from 'console'
-import { ElasticBeanstalkClient, UpdateEnvironmentCommand } from "@aws-sdk/client-elastic-beanstalk"; 
+import { ElasticBeanstalkClient } from '@aws-sdk/client-elastic-beanstalk'
 
 /**
  * The main function for the action.
@@ -39,7 +39,7 @@ export async function run(): Promise<void> {
       }
     }
     // Create an ElasticBeanstalk client service object
-    const client = new ElasticBeanstalkClient(config);
+    const client = new ElasticBeanstalkClient(config)
     assert(client, 'client is required')
 
     core.setOutput('time', new Date().toTimeString())
