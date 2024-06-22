@@ -1,24 +1,55 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
-
-# Add your action's branding here. This will appear on the GitHub Marketplace.
-branding:
-  icon: 'heart'
-  color: 'red'
-
-# Define your inputs here.
+# https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/elastic-beanstalk/command/UpdateEnvironmentCommand/
+name: 'Elastic Beanstalk Deploy Action'
+description: 'Deploy to Elastic Beanstalk'
+author: '7empestx'
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  # aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  aws_access_key:
+    description: 'AWS Access Key'
     required: true
-    default: '1000'
+    default: ${{ secrets.AWS_ACCESS_KEY_ID }}
 
-# Define your outputs here.
+  # aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  aws_secret_key:
+    description: 'AWS Secret Key'
+    required: true
+    default: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  #region: us-west-2
+  aws_region:
+    description: 'Region'
+    required: true
+    default: 'us-west-2'
+
+  # application_name: MyApplicationName
+  application_name:
+    description: 'Application Name'
+    required: true
+    default: 'MyApplicationName'
+
+  # environment_name: MyApplication-Environment
+  environment_name:
+    description: 'Environment Name'
+    required: true
+    default: 'MyApplication-Environment'
+
+  # version_label: 12345
+  version_label:
+    description: 'Version Label'
+    required: true
+    default: '12345'
+
+  # We should not need to package the application in the action
+  # deployment_package: deploy.zip
+  # deployment_package: deploy.zip
+  platform:
+    description: 'Platform'
+    required: true
+    default: 'golang'
+
 outputs:
-  time:
-    description: 'Your output description here'
-
+  time: # id of output
+    description: 'The time we greeted you'
 runs:
-  using: node20
-  main: dist/index.js
+  using: 'node20'
+  main: 'index.js'

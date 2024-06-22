@@ -57,7 +57,13 @@ jobs:
         id: test-action
         uses: ./
         with:
-          milliseconds: 2000
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          application_name: ${{ secrets.APPLICATION_NAME }}
+          environment_name: ${{ secrets.ENVIRONMENT_NAME }}
+          version_label: ${{ secrets.VERSION_LABEL }}
+          platform: ${{ secrets.PLATFORM }}
 
       - name: Print Output
         id: output
